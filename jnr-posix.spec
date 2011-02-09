@@ -3,7 +3,7 @@
 
 Name:           jnr-posix
 Version:        1.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
@@ -82,6 +82,9 @@ cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-posix.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
+
 * Thu Dec 02 2010 Mohammed Morsi <mmorsi@redhat.com> - 1.1.4-3
 - updates to conform to pkg guidelines
 
