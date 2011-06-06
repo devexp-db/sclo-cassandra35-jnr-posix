@@ -1,15 +1,16 @@
-%global git_commit 024c489
-%global cluster wmeissner
+%global git_commit 9555cb9
+%global cluster jruby
 
 Name:           jnr-posix
-Version:        1.1.4
-Release:        4%{?dist}
+Version:        1.1.7
+Release:        1%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/%{cluster}/%{name}/
-Source0:        %{url}/tarball/%{version}/%{cluster}-%{name}-%{git_commit}.tar.gz
+Source0:        https://download.github.com/%{cluster}-%{name}-%{version}-0-g%{git_commit}.tar.gz
 Patch0:         jnr_posix_fix_jar_dependencies.patch
+Patch1:         jnr_posix_remove_windows_specific_bits.patch
 
 BuildRequires:  ant
 BuildRequires:  ant-nodeps
@@ -42,8 +43,9 @@ Requires:       %{name} = %{version}-%{release}
 Javadoc for %{name}.
 
 %prep
-%setup -q -n wmeissner-%{name}-%{git_commit}
+%setup -q -n %{cluster}-%{name}-%{git_commit}
 %patch0
+%patch1
 find ./ -name '*.jar' -exec rm -f '{}' \; 
 find ./ -name '*.class' -exec rm -f '{}' \; 
 
@@ -51,7 +53,6 @@ mkdir build_lib
 build-jar-repository -s -p build_lib jaffl jffi constantine objectweb-asm/asm \
                                      objectweb-asm/analysis objectweb-asm/commons \
                                      objectweb-asm/tree objectweb-asm/util objectweb-asm/xml
-
 
 %build
 ant jar
@@ -82,6 +83,9 @@ cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-posix.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Wed Jun 01 2011 Mo Morsi <mmorsi@redhat.com> - 1.1.7-1
+- Bumped version to latest upstream release
+
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
