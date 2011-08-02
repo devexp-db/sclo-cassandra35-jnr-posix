@@ -1,8 +1,8 @@
-%global git_commit 9555cb9
-%global cluster jruby
+%global git_commit 3035acd
+%global cluster jnr
 
 Name:           jnr-posix
-Version:        1.1.7
+Version:        1.1.8
 Release:        1%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
@@ -83,6 +83,9 @@ cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-posix.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Wed Jun 01 2011 Mo Morsi <mmorsi@redhat.com> - 1.1.8-1
+- Bumped version to latest upstream release
+
 * Wed Jun 01 2011 Mo Morsi <mmorsi@redhat.com> - 1.1.7-1
 - Bumped version to latest upstream release
 
