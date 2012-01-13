@@ -3,7 +3,7 @@
 
 Name:           jnr-posix
 Version:        1.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
@@ -83,6 +83,9 @@ cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-posix.pom
 %{_javadocdir}/%{name}
 
 %changelog
+* Fri Jan 13 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_17_Mass_Rebuild
+
 * Wed Jun 01 2011 Mo Morsi <mmorsi@redhat.com> - 1.1.8-1
 - Bumped version to latest upstream release
 
