@@ -1,30 +1,36 @@
-%global git_commit 3035acd
-%global cluster jnr
+%global commit_hash 47d9618
+%global tag_hash a69c89c
 
 Name:           jnr-posix
-Version:        1.1.8
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
-URL:            http://github.com/%{cluster}/%{name}/
-Source0:        https://download.github.com/%{cluster}-%{name}-%{version}-0-g%{git_commit}.tar.gz
-Patch0:         jnr_posix_fix_jar_dependencies.patch
-Patch1:         jnr_posix_remove_windows_specific_bits.patch
+URL:            http://github.com/jnr/%{name}/
+Source0:        https://github.com/jnr/%{name}/tarball/%{version}/jnr-%{name}-%{version}-0-g%{commit_hash}.tar.gz
 
-BuildRequires:  ant
-BuildRequires:  ant-nodeps
 BuildRequires:  java-devel
 BuildRequires:  jpackage-utils
 BuildRequires:  jnr-constants
-BuildRequires:  jaffl
+BuildRequires:  jnr-ffi
 BuildRequires:  jffi
 BuildRequires:  objectweb-asm
+
+BuildRequires:  maven-local
+BuildRequires:  maven-clean-plugin
+BuildRequires:  maven-compiler-plugin
+BuildRequires:  maven-dependency-plugin
+BuildRequires:  maven-install-plugin
+BuildRequires:  maven-jar-plugin
+BuildRequires:  maven-javadoc-plugin
+BuildRequires:  maven-surefire-plugin
+BuildRequires:  maven-surefire-provider-junit4
 
 Requires:       java
 Requires:       jpackage-utils
 Requires:       jnr-constants
-Requires:       jaffl
+Requires:       jnr-ffi
 Requires:       jffi
 Requires:       objectweb-asm
 
@@ -37,52 +43,47 @@ written in Java and is part of the JNR project
 %package        javadoc
 Summary:        Javadoc for %{name}
 Group:          Documentation
-Requires:       %{name} = %{version}-%{release}
 
 %description    javadoc
 Javadoc for %{name}.
 
 %prep
-%setup -q -n %{cluster}-%{name}-%{git_commit}
-%patch0
-%patch1
-find ./ -name '*.jar' -exec rm -f '{}' \; 
-find ./ -name '*.class' -exec rm -f '{}' \; 
+%setup -q -n jnr-%{name}-%{tag_hash}
 
-mkdir build_lib
-build-jar-repository -s -p build_lib jaffl jffi constantine objectweb-asm/asm \
-                                     objectweb-asm/analysis objectweb-asm/commons \
-                                     objectweb-asm/tree objectweb-asm/util objectweb-asm/xml
+find ./ -name '*.jar' -delete
+find ./ -name '*.class' -delete
 
 %build
-ant jar
-ant javadoc
+# TODO: some tests still fail
+mvn-rpmbuild install javadoc:aggregate
 
 %install
-mkdir -p %{buildroot}%{_javadir}
-cp -p dist/%{name}.jar %{buildroot}%{_javadir}/%{name}.jar
+mkdir -p $RPM_BUILD_ROOT%{_javadir}
+cp -p target/%{name}-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/%{name}.jar
 
-# javadoc
-install -p -d -m 755 %{buildroot}%{_javadocdir}/%{name}
-cp -a dist/javadoc/* %{buildroot}%{_javadocdir}/%{name}
+mkdir -p $RPM_BUILD_ROOT%{_javadocdir}/%{name}
+cp -rp target/site/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
-# pom
-%add_to_maven_depmap org.jruby.ext.posix %{name} %{version} JPP %{name}
-mkdir -p $RPM_BUILD_ROOT%{_mavenpomdir}
-cp pom.xml  $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-jnr-posix.pom
+install -d -m 755 $RPM_BUILD_ROOT%{_mavenpomdir}
+install -pm 644 pom.xml  \
+        $RPM_BUILD_ROOT%{_mavenpomdir}/JPP-%{name}.pom
+
+%add_maven_depmap JPP-%{name}.pom %{name}.jar
 
 %files
-%defattr(-,root,root,-)
-%doc LICENSE.txt
+%doc LICENSE.txt README.txt
 %{_javadir}/%{name}.jar
 %{_mavendepmapfragdir}/%{name}
 %{_mavenpomdir}/*
 
 %files javadoc
-%defattr(-,root,root,-)
+%doc LICENSE.txt
 %{_javadocdir}/%{name}
 
 %changelog
+* Tue Feb 05 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.4.0-1
+- Updated to version 2.4.0.
+
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild
 
