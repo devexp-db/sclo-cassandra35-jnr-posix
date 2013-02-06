@@ -15,7 +15,7 @@ BuildRequires:  jpackage-utils
 BuildRequires:  jnr-constants
 BuildRequires:  jnr-ffi
 BuildRequires:  jffi
-BuildRequires:  objectweb-asm
+BuildRequires:  objectweb-asm4
 
 BuildRequires:  maven-local
 BuildRequires:  maven-clean-plugin
@@ -32,7 +32,7 @@ Requires:       jpackage-utils
 Requires:       jnr-constants
 Requires:       jnr-ffi
 Requires:       jffi
-Requires:       objectweb-asm
+Requires:       objectweb-asm4
 
 BuildArch:      noarch
 
