@@ -3,7 +3,7 @@
 
 Name:           jnr-posix
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
@@ -81,6 +81,9 @@ install -pm 644 pom.xml  \
 %{_javadocdir}/%{name}
 
 %changelog
+* Sat Aug 03 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_20_Mass_Rebuild
+
 * Tue Feb 05 2013 Bohuslav Kabrda <bkabrda@redhat.com> - 2.4.0-1
 - Updated to version 2.4.0.
 
