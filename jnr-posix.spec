@@ -1,6 +1,6 @@
 Name:           jnr-posix
 Version:        3.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
@@ -45,6 +45,9 @@ Javadoc for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
+
 * Fri Oct 18 2013 Vít Ondruch <vondruch@redhat.com> - 3.0.1-1
 - Update to jnr-posix 3.0.1.
 
