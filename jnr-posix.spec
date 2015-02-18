@@ -1,10 +1,9 @@
 Name:           jnr-posix
-Version:        3.0.1
-Release:        2%{?dist}
+Version:        3.0.9
+Release:        1%{?dist}
 Summary:        Java Posix layer
-Group:          Development/Libraries
 License:        CPL or GPLv2+ or LGPLv2+
-URL:            http://github.com/jnr/%{name}/
+URL:            http://github.com/jnr/jnr-posix
 Source0:        https://github.com/jnr/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  jnr-constants
@@ -19,7 +18,6 @@ written in Java and is part of the JNR project
 
 %package        javadoc
 Summary:        Javadoc for %{name}
-Group:          Documentation
 
 %description    javadoc
 Javadoc for %{name}.
@@ -27,13 +25,15 @@ Javadoc for %{name}.
 %prep
 %setup -q
 
+# fix test which assumes that there is a group named "nogroup"
+sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
+
 # Remove useless wagon extension.
 %pom_xpath_remove "pom:build/pom:extensions"
 
-%mvn_file : %{name}
+%mvn_file : %{name}/%{name} %{name}
 
 %build
-# TODO: some tests still fail
 %mvn_build
 
 %install
@@ -45,6 +45,9 @@ Javadoc for %{name}.
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Wed Feb 18 2015 Michal Srb <msrb@redhat.com> - 3.0.9-1
+- Update to upstream version 3.0.9
+
 * Sun Jun 08 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
