@@ -6,9 +6,11 @@ License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
 Source0:        https://github.com/jnr/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  jnr-constants
-BuildRequires:  jnr-ffi
 BuildRequires:  maven-local
+BuildRequires:  mvn(com.github.jnr:jnr-constants)
+BuildRequires:  mvn(com.github.jnr:jnr-ffi)
+BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
 
 BuildArch:      noarch
 
