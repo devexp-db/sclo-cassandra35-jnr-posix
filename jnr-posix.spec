@@ -1,6 +1,6 @@
 Name:           jnr-posix
 Version:        3.0.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
@@ -36,7 +36,12 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %mvn_file : %{name}/%{name} %{name}
 
 %build
+# skip tests on arm: https://bugzilla.redhat.com/show_bug.cgi?id=991712
+%ifnarch %{arm}
 %mvn_build
+%else
+%mvn_build -f
+%endif
 
 %install
 %mvn_install
@@ -47,6 +52,9 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Feb 19 2015 Michal Srb <msrb@redhat.com> - 3.0.9-2
+- Skip tests on arm
+
 * Wed Feb 18 2015 Michal Srb <msrb@redhat.com> - 3.0.9-1
 - Update to upstream version 3.0.9
 
