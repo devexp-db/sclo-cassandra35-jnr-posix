@@ -1,10 +1,10 @@
 Name:           jnr-posix
-Version:        3.0.11
+Version:        3.0.12
 Release:        1%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
-Source0:        https://github.com/jnr/%{name}/archive/%{name}-%{version}.tar.gz
+Source0:        https://github.com/jnr/%{name}/archive/%{version}.tar.gz
 # these tests work locally in mock, but fail in koji from some weird reason
 # TODO: investigate more
 Patch0:         skip-some-tests-on-koji.patch
@@ -28,7 +28,7 @@ Summary:        Javadoc for %{name}
 Javadoc for %{name}.
 
 %prep
-%setup -q -n %{name}-%{name}-%{version}
+%setup -q
 
 %patch0 -p1
 
@@ -57,6 +57,9 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue May 5 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.12-1
+- Update to upstream 3.0.12.
+
 * Thu Apr 30 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.11-1
 - Update to upstream 3.0.11.
 
