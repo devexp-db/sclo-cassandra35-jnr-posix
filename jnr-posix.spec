@@ -1,16 +1,13 @@
 Name:           jnr-posix
-Version:        3.0.12
+Version:        3.0.14
 Release:        1%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
 Source0:        https://github.com/jnr/%{name}/archive/%{version}.tar.gz
-# these tests work locally in mock, but fail in koji from some weird reason
-# TODO: investigate more
-Patch0:         skip-some-tests-on-koji.patch
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.github.jnr:jnr-constants)
+BuildRequires:  mvn(com.github.jnr:jnr-constants) >= 0.8.8
 BuildRequires:  mvn(com.github.jnr:jnr-ffi)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
@@ -30,8 +27,6 @@ Javadoc for %{name}.
 %prep
 %setup -q
 
-%patch0 -p1
-
 # fix test which assumes that there is a group named "nogroup"
 sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 
@@ -41,12 +36,7 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %mvn_file : %{name}/%{name} %{name}
 
 %build
-# skip tests on arm: https://bugzilla.redhat.com/show_bug.cgi?id=991712
-%ifnarch %{arm}
-%mvn_build
-%else
 %mvn_build -f
-%endif
 
 %install
 %mvn_install
@@ -57,6 +47,10 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Tue Jun 16 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.14-1
+- Update to upstream 3.0.14.
+- Skip tests as there are more failing tests with this release.
+
 * Tue May 5 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.12-1
 - Update to upstream 3.0.12.
 
