@@ -1,0 +1,23 @@
+diff -up ./MANIFEST.MF.fix ./MANIFEST.MF
+--- ./MANIFEST.MF.fix	2015-06-17 12:54:35.553446165 -0400
++++ ./MANIFEST.MF	2015-06-17 12:58:57.054808857 -0400
+@@ -1,2 +1,19 @@
+ Implementation-Title: JNA-POSIX
+ Implementation-Version: 0.5
++Manifest-Version: 1.0
++Bundle-SymbolicName: jnr.posix
++Export-Package: jnr.posix;version="3.0.14",jnr.posix.util;version="3.0.
++ 14"
++Bundle-Name: Java POSIX Layer
++Bundle-Version: 3.0.14
++Bundle-Localization: plugin
++Bundle-ManifestVersion: 2
++Bundle-ActivationPolicy: lazy
++Bundle-RequiredExecutionEnvironment: JavaSE-1.7
++Bundle-Vendor: Eclipse Orbit
++Import-Package: jnr.constants;version="0.8.6",jnr.constants.platform;v
++ ersion="0.8.6",jnr.constants.platform.windows;version="0.8.6",jnr.ffi
++ ;version="2.0.1",jnr.ffi.annotations;version="2.0.1",jnr.ffi.byref;ve
++ rsion="2.0.1",jnr.ffi.mapper;version="2.0.1",jnr.ffi.provider;version
++ ="2.0.1",jnr.ffi.types;version="2.0.1"
++

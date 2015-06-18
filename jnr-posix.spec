@@ -1,10 +1,11 @@
 Name:           jnr-posix
 Version:        3.0.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
 Source0:        https://github.com/jnr/%{name}/archive/%{version}.tar.gz
+Patch0:		fix-manifest.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jnr-constants) >= 0.8.8
@@ -26,6 +27,7 @@ Javadoc for %{name}.
 
 %prep
 %setup -q
+%patch0
 
 # fix test which assumes that there is a group named "nogroup"
 sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
@@ -47,6 +49,9 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Wed Jun 17 2015 Jeff Johnston <jjohnstn@redhat.com> 3.0.14-2
+- Fix MANIFEST file.
+
 * Tue Jun 16 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.14-1
 - Update to upstream 3.0.14.
 - Skip tests as there are more failing tests with this release.
