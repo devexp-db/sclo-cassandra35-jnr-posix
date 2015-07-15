@@ -1,11 +1,11 @@
 Name:           jnr-posix
-Version:        3.0.14
-Release:        2%{?dist}
+Version:        3.0.15
+Release:        1%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
 Source0:        https://github.com/jnr/%{name}/archive/%{version}.tar.gz
-Patch0:		fix-manifest.patch
+Patch0:		    fix-manifest.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jnr-constants) >= 0.8.8
@@ -44,11 +44,15 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %mvn_install
 
 %files -f .mfiles
-%doc LICENSE.txt README.txt
+%doc README.md
+%license LICENSE.txt
 
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Wed Jul 15 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.15-1
+- Update to upstream 3.0.15.
+
 * Wed Jun 17 2015 Jeff Johnston <jjohnstn@redhat.com> 3.0.14-2
 - Fix MANIFEST file.
 
