@@ -1,6 +1,6 @@
 Name:           jnr-posix
 Version:        3.0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
@@ -50,6 +50,9 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
+
 * Fri Oct 23 2015 Alexander Kurtakov <akurtako@redhat.com> 3.0.19-1
 - Update to upstream 3.0.19 version.
 
