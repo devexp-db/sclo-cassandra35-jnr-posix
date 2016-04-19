@@ -6,10 +6,10 @@ diff -up ./MANIFEST.MF.fix ./MANIFEST.MF
  Implementation-Version: 0.5
 +Manifest-Version: 1.0
 +Bundle-SymbolicName: jnr.posix
-+Export-Package: jnr.posix;version="3.0.27",jnr.posix.util;version="3.0.
-+ 27"
++Export-Package: jnr.posix;version="3.0.29",jnr.posix.util;version="3.0.
++ 29"
 +Bundle-Name: Java POSIX Layer
-+Bundle-Version: 3.0.27
++Bundle-Version: 3.0.29
 +Bundle-Localization: plugin
 +Bundle-ManifestVersion: 2
 +Bundle-ActivationPolicy: lazy
