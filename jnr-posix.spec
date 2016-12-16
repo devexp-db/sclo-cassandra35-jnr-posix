@@ -1,6 +1,6 @@
 Name:           jnr-posix
 Version:        3.0.29
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java Posix layer
 License:        CPL or GPLv2+ or LGPLv2+
 URL:            http://github.com/jnr/jnr-posix
@@ -11,6 +11,8 @@ BuildRequires:  maven-local
 BuildRequires:  mvn(com.github.jnr:jnr-constants) >= 0.8.8
 BuildRequires:  mvn(com.github.jnr:jnr-ffi)
 BuildRequires:  mvn(junit:junit)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.sonatype.oss:oss-parent:pom:)
 
 BuildArch:      noarch
@@ -50,6 +52,9 @@ sed -i 's|"nogroup"|"root"|' src/test/java/jnr/posix/GroupTest.java
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Dec 16 2016 Merlin Mathesius <mmathesi@redhat.com> - 3.0.29-2
+- Add missing BuildRequires to fix FTBFS (BZ#1405610).
+
 * Tue Apr 19 2016 Alexander Kurtakov <akurtako@redhat.com> 3.0.29-1
 - Update to upstream 3.0.29 release.
 
